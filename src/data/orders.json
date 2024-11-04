@@ -72,7 +72,7 @@
     "buyer": "Liam Tan",
     "paymentStatus": {
       "status": "Pending",
-      "icons": ["Apple Pay"]
+      "icons": ["PayMe"]
     },
     "deliveryStatus": {
       "status": "Ready to deliver",

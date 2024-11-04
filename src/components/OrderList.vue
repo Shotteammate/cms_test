@@ -21,35 +21,14 @@
         :dataSource="paginatedData"
         :pagination="false"
         rowKey="id"
-      >
-        <template #paymentStatus="{ record }">
-          <div style="display: flex; align-items: center">
-            <div
-              v-for="icon in record.paymentStatus.icons"
-              :key="icon"
-              style="margin-right: 8px"
-            >
-              <img :src="getIcon(icon)" alt="icon" style="width: 24px" />
-            </div>
-            <span>{{ record.paymentStatus.status }}</span>
-          </div>
-        </template>
-        <template #deliveryStatus="{ record }">
-          <div style="display: flex; align-items: center">
-            <div
-              v-for="icon in record.deliveryStatus.icons"
-              :key="icon"
-              style="margin-right: 8px"
-            >
-              <img :src="getIcon(icon)" alt="icon" style="width: 24px" />
-            </div>
-            <span>{{ record.deliveryStatus.status }}</span>
-          </div>
-        </template>
-        <template #totalAmount="{ record }">
-          <span>{{ record.currency }} {{ record.totalAmount.toFixed(2) }}</span>
-        </template>
-      </a-table>
+        :rowSelection="rowSelection"
+        summary="tableSummary"
+      />
+
+      <!-- Selected Total Row -->
+      <div style="margin-top: 15px">
+        <span><strong>Checked: HKD</strong> {{ selectedTotal }}</span>
+      </div>
 
       <!-- Table Footer Controls -->
       <div
@@ -68,6 +47,7 @@
         />
         <a-select
           v-model="pagination.pageSize"
+          :value="pagination.pageSize"
           style="width: 120px; margin-left: 10px"
           @change="handlePageSizeChange"
         >
@@ -83,6 +63,7 @@
 
 <script setup>
 import { ref, computed, onMounted } from "vue";
+import { h } from "vue";
 
 // State for form filters
 const filters = ref({
@@ -100,6 +81,13 @@ const filters = ref({
 const orderList = ref([]);
 const columns = [
   {
+    title: "",
+    key: "select",
+    dataIndex: "select",
+    customRender: ({ record }) =>
+      h("a-checkbox", { modelValue: record.checked }),
+  },
+  {
     title: "Order Date",
     dataIndex: "orderDate",
     key: "orderDate",
@@ -109,18 +97,39 @@ const columns = [
   {
     title: "Total Amount",
     key: "totalAmount",
-    scopedSlots: { customRender: "totalAmount" },
+    customRender: ({ record }) =>
+      `${record.currency} ${record.totalAmount.toFixed(2)}`,
   },
   { title: "Buyer", dataIndex: "buyer", key: "buyer" },
   {
     title: "Payment Status",
     key: "paymentStatus",
-    scopedSlots: { customRender: "paymentStatus" },
+    customRender: ({ record }) =>
+      h("div", { style: { display: "flex", alignItems: "center" } }, [
+        ...record.paymentStatus.icons.map((icon) =>
+          h("img", {
+            src: getIcon(icon),
+            alt: "icon",
+            style: { width: "24px", marginRight: "8px" },
+          })
+        ),
+        h("span", record.paymentStatus.status),
+      ]),
   },
   {
     title: "Delivery Status",
     key: "deliveryStatus",
-    scopedSlots: { customRender: "deliveryStatus" },
+    customRender: ({ record }) =>
+      h("div", { style: { display: "flex", alignItems: "center" } }, [
+        ...record.deliveryStatus.icons.map((icon) =>
+          h("img", {
+            src: getIcon(icon),
+            alt: "icon",
+            style: { width: "24px", marginRight: "8px" },
+          })
+        ),
+        h("span", record.deliveryStatus.status),
+      ]),
   },
 ];
 
@@ -131,11 +140,26 @@ const pagination = ref({
   total: 0,
 });
 
+// Row selection state
+const selectedRows = ref([]);
+
+// Row selection config
+const rowSelection = {
+  onChange: (selectedRowKeys, selectedRowsData) => {
+    selectedRows.value = selectedRowsData;
+  },
+};
+
 // Compute paginated data based on pagination
 const paginatedData = computed(() => {
   const start = (pagination.value.current - 1) * pagination.value.pageSize;
   const end = start + pagination.value.pageSize;
   return orderList.value.slice(start, end);
+});
+
+// Calculate the total amount of selected orders
+const selectedTotal = computed(() => {
+  return selectedRows.value.reduce((sum, order) => sum + order.totalAmount, 0);
 });
 
 // Fetch mock data asynchronously
@@ -155,17 +179,17 @@ const fetchOrders = async () => {
 const getIcon = (iconName) => {
   switch (iconName) {
     case "HSBC":
-      return "/path/to/hsbc-icon.png";
+      return "/src/assets/icons/hsbc.png";
     case "Visa":
-      return "/path/to/visa-icon.png";
+      return "/src/assets/icons/visa.png";
     case "MasterCard":
-      return "/path/to/mastercard-icon.png";
+      return "/src/assets/icons/mastercard.png";
     case "PayMe":
-      return "/path/to/payme-icon.png";
+      return "/src/assets/icons/payme.png";
     case "SF Express":
-      return "/path/to/sf-express-icon.png";
+      return "/src/assets/icons/sf.png";
     case "7-Eleven":
-      return "/path/to/7-eleven-icon.png";
+      return "/src/assets/icons/7-eleven.png";
     default:
       return "";
   }
@@ -189,7 +213,3 @@ const handlePageSizeChange = (size) => {
   pagination.value.current = 1; // Reset to the first page when page size changes
 };
 </script>
-
-<style scoped>
-/* Custom styles for layout */
-</style>
