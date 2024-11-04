@@ -15,20 +15,26 @@
         </a-form>
       </a-card>
 
-      <!-- Orders Table -->
+      <!-- Orders Table with Summary Row -->
       <a-table
         :columns="columns"
         :dataSource="paginatedData"
         :pagination="false"
         rowKey="id"
         :rowSelection="rowSelection"
-        summary="tableSummary"
-      />
-
-      <!-- Selected Total Row -->
-      <div style="margin-top: 15px">
-        <span><strong>Checked: HKD</strong> {{ selectedTotal }}</span>
-      </div>
+      >
+        <template #summary>
+          <tr>
+            <td colspan="4">
+              <strong>Checked: </strong><span>HKD</span>
+              {{ selectedTotal.toFixed(2) }}
+            </td>
+            <td colspan="4">
+              <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
+            </td>
+          </tr>
+        </template>
+      </a-table>
 
       <!-- Table Footer Controls -->
       <div
@@ -62,8 +68,7 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from "vue";
-import { h } from "vue";
+import { ref, computed, h } from "vue";
 
 // State for form filters
 const filters = ref({
@@ -162,17 +167,47 @@ const selectedTotal = computed(() => {
   return selectedRows.value.reduce((sum, order) => sum + order.totalAmount, 0);
 });
 
-// Fetch mock data asynchronously
-const fetchOrders = async () => {
+// Fetch mock data asynchronously based on filters
+const fetchOrders = async (filters) => {
   try {
     const response = await fetch("/src/data/orders.json");
     if (!response.ok) throw new Error("Failed to load orders data");
-    const data = await response.json();
+    let data = await response.json();
+
+    // Filter data based on filters
+    data = data.filter((order) => {
+      return (
+        (!filters.billNo || order.billNo.includes(filters.billNo)) &&
+        (!filters.buyer || order.buyer.includes(filters.buyer))
+        // Additional filter conditions can go here
+      );
+    });
+
     orderList.value = data;
     pagination.value.total = data.length;
   } catch (error) {
     console.error(error);
   }
+};
+
+// Calculate the total amount of paginated orders
+const totalAmount = computed(() => {
+  return paginatedData.value.reduce((sum, order) => sum + order.totalAmount, 0);
+});
+
+// Search function to trigger data fetching
+const searchOrders = () => {
+  fetchOrders(filters.value);
+};
+
+// Pagination handlers
+const handlePageChange = (page) => {
+  pagination.value.current = page;
+};
+
+const handlePageSizeChange = (size) => {
+  pagination.value.pageSize = size;
+  pagination.value.current = 1; // Reset to the first page when page size changes
 };
 
 // Function to get icon path
@@ -193,23 +228,5 @@ const getIcon = (iconName) => {
     default:
       return "";
   }
-};
-
-// Fetch orders on component mount
-onMounted(fetchOrders);
-
-// Search function placeholder
-const searchOrders = () => {
-  // Implement your search logic here
-};
-
-// Pagination handlers
-const handlePageChange = (page) => {
-  pagination.value.current = page;
-};
-
-const handlePageSizeChange = (size) => {
-  pagination.value.pageSize = size;
-  pagination.value.current = 1; // Reset to the first page when page size changes
 };
 </script>
