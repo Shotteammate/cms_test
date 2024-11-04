@@ -16,7 +16,12 @@
       </a-card>
 
       <!-- Orders Table -->
-      <a-table :columns="columns" :dataSource="orderList" rowKey="id">
+      <a-table
+        :columns="columns"
+        :dataSource="paginatedData"
+        :pagination="false"
+        rowKey="id"
+      >
         <template #paymentStatus="{ record }">
           <div style="display: flex; align-items: center">
             <div
@@ -45,12 +50,39 @@
           <span>{{ record.currency }} {{ record.totalAmount.toFixed(2) }}</span>
         </template>
       </a-table>
+
+      <!-- Table Footer Controls -->
+      <div
+        style="
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-top: 10px;
+        "
+      >
+        <a-pagination
+          :current="pagination.current"
+          :total="pagination.total"
+          :pageSize="pagination.pageSize"
+          @change="handlePageChange"
+        />
+        <a-select
+          v-model="pagination.pageSize"
+          style="width: 120px; margin-left: 10px"
+          @change="handlePageSizeChange"
+        >
+          <a-select-option value="5">5</a-select-option>
+          <a-select-option value="10">10</a-select-option>
+          <a-select-option value="15">15</a-select-option>
+          <a-select-option value="20">20</a-select-option>
+        </a-select>
+      </div>
     </a-card>
   </div>
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 
 // State for form filters
 const filters = ref({
@@ -95,18 +127,23 @@ const columns = [
 // Pagination state
 const pagination = ref({
   current: 1,
-  pageSize: 25,
-  total: 100,
+  pageSize: 5,
+  total: 0,
+});
+
+// Compute paginated data based on pagination
+const paginatedData = computed(() => {
+  const start = (pagination.value.current - 1) * pagination.value.pageSize;
+  const end = start + pagination.value.pageSize;
+  return orderList.value.slice(start, end);
 });
 
 // Fetch mock data asynchronously
 const fetchOrders = async () => {
   try {
     const response = await fetch("/src/data/orders.json");
-    console.log("response", response);
     if (!response.ok) throw new Error("Failed to load orders data");
     const data = await response.json();
-    console.log("data", data);
     orderList.value = data;
     pagination.value.total = data.length;
   } catch (error) {
@@ -142,9 +179,14 @@ const searchOrders = () => {
   // Implement your search logic here
 };
 
-// Pagination handler
+// Pagination handlers
 const handlePageChange = (page) => {
   pagination.value.current = page;
+};
+
+const handlePageSizeChange = (size) => {
+  pagination.value.pageSize = size;
+  pagination.value.current = 1; // Reset to the first page when page size changes
 };
 </script>
 
