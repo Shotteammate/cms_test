@@ -8,15 +8,131 @@
         @change="toggleCollapse"
       >
         <a-collapse-panel key="1" header="Search Orders">
-          <a-form layout="inline">
-            <!-- Filter fields here -->
-            <a-form-item label="Bill No">
-              <a-input v-model="filters.billNo" placeholder="Enter Bill No" />
-            </a-form-item>
-            <!-- Additional filter fields go here -->
-            <a-form-item>
-              <a-button type="primary" @click="searchOrders">Search</a-button>
-            </a-form-item>
+          <a-form layout="horizontal" labelAlign="left">
+            <a-row gutter="16">
+              <!-- First Column: Inputs -->
+              <a-col :span="8">
+                <a-form-item
+                  label="Bill No"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-input
+                    v-model="filters.billNo"
+                    placeholder="Enter Bill No"
+                  />
+                </a-form-item>
+                <a-form-item
+                  label="Buyer"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-input
+                    v-model="filters.buyer"
+                    placeholder="Enter Buyer Name"
+                  />
+                </a-form-item>
+                <a-form-item
+                  label="Contact Number"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-input
+                    v-model="filters.contactNumber"
+                    placeholder="Enter Contact Number"
+                  />
+                </a-form-item>
+                <a-form-item
+                  label="Email Address"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-input
+                    v-model="filters.emailAddress"
+                    placeholder="Enter Email Address"
+                  />
+                </a-form-item>
+              </a-col>
+
+              <!-- Second Column: Selects -->
+              <a-col :span="8">
+                <a-form-item
+                  label="Delivery Agent's Name"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-select
+                    v-model="filters.deliveryAgent"
+                    placeholder="Select Delivery Agent"
+                  >
+                    <a-select-option value="agent1">Agent 1</a-select-option>
+                    <a-select-option value="agent2">Agent 2</a-select-option>
+                  </a-select>
+                </a-form-item>
+                <a-form-item
+                  label="Delivery Status"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-select
+                    v-model="filters.deliveryStatus"
+                    placeholder="Select Delivery Status"
+                  >
+                    <a-select-option value="pending">Pending</a-select-option>
+                    <a-select-option value="delivered"
+                      >Delivered</a-select-option
+                    >
+                  </a-select>
+                </a-form-item>
+                <a-form-item
+                  label="Payment Status"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-select
+                    v-model="filters.paymentStatus"
+                    placeholder="Select Payment Status"
+                  >
+                    <a-select-option value="paid">Paid</a-select-option>
+                    <a-select-option value="unpaid">Unpaid</a-select-option>
+                  </a-select>
+                </a-form-item>
+                <a-form-item
+                  label="Payment"
+                  :labelCol="{ span: 8 }"
+                  :wrapperCol="{ span: 16 }"
+                >
+                  <a-select
+                    v-model="filters.payment"
+                    placeholder="Select Payment Method"
+                  >
+                    <a-select-option value="creditCard"
+                      >Credit Card</a-select-option
+                    >
+                    <a-select-option value="paypal">PayPal</a-select-option>
+                  </a-select>
+                </a-form-item>
+              </a-col>
+
+              <!-- Third Column: Date-Picker Range and Search Button -->
+              <a-col :span="4">
+                <a-form-item
+                  label="Order Date"
+                  :labelCol="{ span: 24 }"
+                  :wrapperCol="{ span: 24 }"
+                >
+                  <a-range-picker
+                    v-model="filters.orderDate"
+                    style="width: 100%"
+                  />
+                </a-form-item>
+                <a-form-item>
+                  <a-button type="primary" @click="searchOrders" block
+                    >Search</a-button
+                  >
+                </a-form-item>
+              </a-col>
+            </a-row>
           </a-form>
         </a-collapse-panel>
       </a-collapse>
@@ -34,8 +150,8 @@
           <template #summary>
             <tr>
               <td colspan="4">
-                <strong>Checked: </strong><span>HKD</span>
-                {{ selectedTotal.toFixed(2) }}
+                <strong>Checked: </strong><span>HKD</span
+                >{{ selectedTotal.toFixed(2) }}
               </td>
               <td colspan="4">
                 <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
@@ -226,7 +342,7 @@ const collapsed = ref(false);
 const calculateTableHeight = () => {
   const windowHeight = window.innerHeight;
   const headerHeight = 100; // Estimate for header
-  const filterHeight = collapsed.value ? 0 : 150; // Adjust height if panel is collapsed
+  const filterHeight = collapsed.value ? 30 : 300; // Adjust height if panel is collapsed
   const footerHeight = 80; // Estimate for footer controls
   tableHeight.value = windowHeight - headerHeight - filterHeight - footerHeight;
 };
