@@ -194,6 +194,7 @@
 
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch, h } from "vue";
+import { getIcon } from "../utils/commonUtils";
 
 // State for form filters
 const filters = ref({
@@ -357,24 +358,4 @@ onBeforeUnmount(() => {
 
 // Watch for collapse state changes
 watch(collapsed, calculateTableHeight);
-
-// Function to get icon path
-const getIcon = (iconName) => {
-  switch (iconName) {
-    case "HSBC":
-      return "/src/assets/icons/hsbc.png";
-    case "Visa":
-      return "/src/assets/icons/visa.png";
-    case "MasterCard":
-      return "/src/assets/icons/mastercard.png";
-    case "PayMe":
-      return "/src/assets/icons/payme.png";
-    case "SF Express":
-      return "/src/assets/icons/sf.png";
-    case "7-Eleven":
-      return "/src/assets/icons/7-eleven.png";
-    default:
-      return "";
-  }
-};
 </script>

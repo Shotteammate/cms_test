@@ -7,12 +7,12 @@
     "currency": "HKD",
     "buyer": "Oleg Vasilyev / Artem Vishniakov",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["HSBC", "Visa"]
+      "status": "authorized",
+      "icons": ["hsbc", "visa"]
     },
     "deliveryStatus": {
-      "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "processing",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -23,12 +23,12 @@
     "currency": "HKD",
     "buyer": "Anna Lee",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["PayMe", "MasterCard"]
+      "status": "authorized",
+      "icons": ["payme", "mastercard"]
     },
     "deliveryStatus": {
-      "status": "Customer pickup",
-      "icons": ["7-Eleven"]
+      "status": "customer_pickup",
+      "icons": ["seven_eleven"]
     }
   },
   {
@@ -39,12 +39,12 @@
     "currency": "HKD",
     "buyer": "James Wong",
     "paymentStatus": {
-      "status": "Manual Processing",
-      "icons": ["PayMe"]
+      "status": "manual_processing",
+      "icons": ["payme"]
     },
     "deliveryStatus": {
-      "status": "Completed",
-      "icons": ["SF Express"]
+      "status": "completed",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -55,12 +55,12 @@
     "currency": "HKD",
     "buyer": "Sophia Cheng",
     "paymentStatus": {
-      "status": "Rejected",
-      "icons": ["PayMe", "MasterCard"]
+      "status": "rejected",
+      "icons": ["payme", "mastercard"]
     },
     "deliveryStatus": {
-      "status": "Cancelled",
-      "icons": ["SF Express"]
+      "status": "cancelled",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -71,12 +71,12 @@
     "currency": "HKD",
     "buyer": "Liam Tan",
     "paymentStatus": {
-      "status": "Pending",
-      "icons": ["PayMe"]
+      "status": "pending",
+      "icons": ["payme"]
     },
     "deliveryStatus": {
-      "status": "Ready to deliver",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "ready_to_deliver",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -87,12 +87,12 @@
     "currency": "HKD",
     "buyer": "Emily Zhao",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["HSBC", "Visa"]
+      "status": "authorized",
+      "icons": ["hsbc", "visa"]
     },
     "deliveryStatus": {
-      "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "processing",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -103,12 +103,12 @@
     "currency": "HKD",
     "buyer": "Michael Cheung",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["PayMe"]
+      "status": "authorized",
+      "icons": ["payme"]
     },
     "deliveryStatus": {
-      "status": "Customer pickup",
-      "icons": ["7-Eleven"]
+      "status": "customer_pickup",
+      "icons": ["seven_eleven"]
     }
   },
   {
@@ -119,12 +119,12 @@
     "currency": "HKD",
     "buyer": "Sophia Ng",
     "paymentStatus": {
-      "status": "Pending",
-      "icons": ["Visa"]
+      "status": "pending",
+      "icons": ["visa"]
     },
     "deliveryStatus": {
-      "status": "Completed",
-      "icons": ["SF Express"]
+      "status": "completed",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -135,12 +135,12 @@
     "currency": "HKD",
     "buyer": "Lucas Chan",
     "paymentStatus": {
-      "status": "Rejected",
-      "icons": ["HSBC"]
+      "status": "rejected",
+      "icons": ["hsbc"]
     },
     "deliveryStatus": {
-      "status": "Cancelled",
-      "icons": ["SF Express"]
+      "status": "cancelled",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -151,12 +151,12 @@
     "currency": "HKD",
     "buyer": "Olivia Yip",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["Visa", "MasterCard"]
+      "status": "authorized",
+      "icons": ["visa", "mastercard"]
     },
     "deliveryStatus": {
-      "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "processing",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -167,12 +167,12 @@
     "currency": "HKD",
     "buyer": "Benjamin Lau",
     "paymentStatus": {
-      "status": "Manual Processing",
-      "icons": ["PayMe", "Visa"]
+      "status": "manual_processing",
+      "icons": ["payme", "visa"]
     },
     "deliveryStatus": {
-      "status": "Ready to deliver",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "ready_to_deliver",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -183,12 +183,12 @@
     "currency": "HKD",
     "buyer": "Charlotte Wong",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["HSBC"]
+      "status": "authorized",
+      "icons": ["hsbc"]
     },
     "deliveryStatus": {
-      "status": "Completed",
-      "icons": ["SF Express"]
+      "status": "completed",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -199,12 +199,12 @@
     "currency": "HKD",
     "buyer": "David Lee",
     "paymentStatus": {
-      "status": "Rejected",
-      "icons": ["HSBC"]
+      "status": "rejected",
+      "icons": ["hsbc"]
     },
     "deliveryStatus": {
-      "status": "Cancelled",
-      "icons": ["SF Express"]
+      "status": "cancelled",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -215,12 +215,12 @@
     "currency": "HKD",
     "buyer": "Mia Lo",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["Visa"]
+      "status": "authorized",
+      "icons": ["visa"]
     },
     "deliveryStatus": {
-      "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "processing",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -231,12 +231,12 @@
     "currency": "HKD",
     "buyer": "Thomas Tam",
     "paymentStatus": {
-      "status": "Pending",
-      "icons": ["Apple Pay"]
+      "status": "pending",
+      "icons": ["apple_pay"]
     },
     "deliveryStatus": {
-      "status": "Ready to deliver",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "ready_to_deliver",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -247,28 +247,28 @@
     "currency": "HKD",
     "buyer": "Isabella Fong",
     "paymentStatus": {
-      "status": "Manual Processing",
-      "icons": ["Visa"]
+      "status": "manual_processing",
+      "icons": ["visa"]
     },
     "deliveryStatus": {
-      "status": "Customer pickup",
-      "icons": ["7-Eleven"]
+      "status": "customer_pickup",
+      "icons": ["seven_eleven"]
     }
   },
   {
     "id": 17,
     "orderDate": "2024-04-15 16:28:22",
     "billNo": "ATL2024V0011",
-    "totalAmount": 540.5,
+    "totalAmount": 1380.0,
     "currency": "HKD",
-    "buyer": "Ethan Ho",
+    "buyer": "Lucas Cheng",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["Visa", "HSBC"]
+      "status": "authorized",
+      "icons": ["visa", "hsbc"]
     },
     "deliveryStatus": {
-      "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "processing",
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -279,12 +279,12 @@
     "currency": "HKD",
     "buyer": "Amelia Kwan",
     "paymentStatus": {
-      "status": "Rejected",
-      "icons": ["MasterCard"]
+      "status": "rejected",
+      "icons": ["mastercard"]
     },
     "deliveryStatus": {
-      "status": "Cancelled",
-      "icons": ["SF Express"]
+      "status": "cancelled",
+      "icons": ["sf_express"]
     }
   },
   {
@@ -295,12 +295,12 @@
     "currency": "HKD",
     "buyer": "Nathan Wong",
     "paymentStatus": {
-      "status": "Authorized",
-      "icons": ["PayMe", "Visa"]
+      "status": "authorized",
+      "icons": ["payme", "visa"]
     },
     "deliveryStatus": {
       "status": "Processing",
-      "icons": ["SF Express", "7-Eleven"]
+      "icons": ["sf_express", "seven_eleven"]
     }
   },
   {
@@ -311,12 +311,12 @@
     "currency": "HKD",
     "buyer": "Lucas Lam",
     "paymentStatus": {
-      "status": "Manual Processing",
-      "icons": ["Visa", "MasterCard"]
+      "status": "manual_processing",
+      "icons": ["visa", "mastercard"]
     },
     "deliveryStatus": {
-      "status": "Ready to deliver",
-      "icons": ["SF Express", "7-Eleven"]
+      "status": "ready_to_deliver",
+      "icons": ["sf_express", "seven_eleven"]
     }
   }
 ]
