@@ -1,40 +1,49 @@
 <template>
   <div>
     <a-card title="Order list" :bordered="false">
-      <!-- Search Order Filter Section -->
-      <a-card :style="{ backgroundColor: '#e6f7ff', marginBottom: '20px' }">
-        <a-form layout="inline">
-          <!-- Filter fields here -->
-          <a-form-item label="Bill No">
-            <a-input v-model="filters.billNo" placeholder="Enter Bill No" />
-          </a-form-item>
-          <!-- Additional filter fields go here -->
-          <a-form-item>
-            <a-button type="primary" @click="searchOrders">Search</a-button>
-          </a-form-item>
-        </a-form>
-      </a-card>
-
-      <!-- Orders Table with Summary Row -->
-      <a-table
-        :columns="columns"
-        :dataSource="paginatedData"
-        :pagination="false"
-        rowKey="id"
-        :rowSelection="rowSelection"
+      <!-- Search Order Filter Section with Collapsible Panel -->
+      <a-collapse
+        :defaultActiveKey="['1']"
+        style="margin-bottom: 20px"
+        @change="toggleCollapse"
       >
-        <template #summary>
-          <tr>
-            <td colspan="4">
-              <strong>Checked: </strong><span>HKD</span>
-              {{ selectedTotal.toFixed(2) }}
-            </td>
-            <td colspan="4">
-              <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
-            </td>
-          </tr>
-        </template>
-      </a-table>
+        <a-collapse-panel key="1" header="Search Orders">
+          <a-form layout="inline">
+            <!-- Filter fields here -->
+            <a-form-item label="Bill No">
+              <a-input v-model="filters.billNo" placeholder="Enter Bill No" />
+            </a-form-item>
+            <!-- Additional filter fields go here -->
+            <a-form-item>
+              <a-button type="primary" @click="searchOrders">Search</a-button>
+            </a-form-item>
+          </a-form>
+        </a-collapse-panel>
+      </a-collapse>
+
+      <!-- Orders Table with Scrollable Section -->
+      <div :style="{ maxHeight: `${tableHeight}px`, overflowY: 'auto' }">
+        <a-table
+          :columns="columns"
+          :dataSource="paginatedData"
+          :pagination="false"
+          rowKey="id"
+          :rowSelection="rowSelection"
+          :scroll="{ y: tableHeight }"
+        >
+          <template #summary>
+            <tr>
+              <td colspan="4">
+                <strong>Checked: </strong><span>HKD</span>
+                {{ selectedTotal.toFixed(2) }}
+              </td>
+              <td colspan="4">
+                <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
+              </td>
+            </tr>
+          </template>
+        </a-table>
+      </div>
 
       <!-- Table Footer Controls -->
       <div
@@ -68,7 +77,7 @@
 </template>
 
 <script setup>
-import { ref, computed, h } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch, h } from "vue";
 
 // State for form filters
 const filters = ref({
@@ -209,6 +218,35 @@ const handlePageSizeChange = (size) => {
   pagination.value.pageSize = size;
   pagination.value.current = 1; // Reset to the first page when page size changes
 };
+
+// Dynamic table height
+const tableHeight = ref(0);
+const collapsed = ref(false);
+
+const calculateTableHeight = () => {
+  const windowHeight = window.innerHeight;
+  const headerHeight = 100; // Estimate for header
+  const filterHeight = collapsed.value ? 0 : 150; // Adjust height if panel is collapsed
+  const footerHeight = 80; // Estimate for footer controls
+  tableHeight.value = windowHeight - headerHeight - filterHeight - footerHeight;
+};
+
+// Toggle collapse state and recalculate height
+const toggleCollapse = (keys) => {
+  collapsed.value = !keys.includes("1");
+};
+
+onMounted(() => {
+  calculateTableHeight();
+  window.addEventListener("resize", calculateTableHeight);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener("resize", calculateTableHeight);
+});
+
+// Watch for collapse state changes
+watch(collapsed, calculateTableHeight);
 
 // Function to get icon path
 const getIcon = (iconName) => {
