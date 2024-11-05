@@ -32,5 +32,5 @@ export const StatusColor = {
   customer_pickup: "purple",
   ready_to_deliver: "cyan",
   manual_processing: "orange",
-  authorized: "pink",
+  authorized: "lime",
 };
