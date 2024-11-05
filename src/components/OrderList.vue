@@ -149,7 +149,7 @@
         >
           <template #summary>
             <tr>
-              <td colspan="4">
+              <td colspan="3">
                 <strong>Checked: </strong><span>HKD</span
                 >{{ selectedTotal.toFixed(2) }}
               </td>
@@ -211,13 +211,6 @@ const filters = ref({
 const orderList = ref([]);
 const columns = [
   {
-    title: "",
-    key: "select",
-    dataIndex: "select",
-    customRender: ({ record }) =>
-      h("a-checkbox", { modelValue: record.checked }),
-  },
-  {
     title: "Order Date",
     dataIndex: "orderDate",
     key: "orderDate",
@@ -229,8 +222,9 @@ const columns = [
     key: "totalAmount",
     customRender: ({ record }) =>
       `${record.currency} ${record.totalAmount.toFixed(2)}`,
+    sorter: true,
   },
-  { title: "Buyer", dataIndex: "buyer", key: "buyer" },
+  { title: "Buyer", dataIndex: "buyer", key: "buyer", sorter: true },
   {
     title: "Payment Status",
     key: "paymentStatus",
