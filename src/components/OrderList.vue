@@ -164,7 +164,7 @@
           </template>
 
           <template #summary>
-            <tr>
+            <tr class="sticky-summary">
               <td colspan="3">
                 <strong>Checked: </strong><span>HKD</span
                 >{{ selectedTotal.toFixed(2) }}
@@ -268,7 +268,7 @@ const selectedRows = ref([]);
 
 // Row selection config
 const rowSelection = {
-  onChange: (selectedRowKeys, selectedRowsData) => {
+  onChange: (_, selectedRowsData) => {
     selectedRows.value = selectedRowsData;
   },
 };
@@ -357,3 +357,12 @@ onBeforeUnmount(() => {
 // Watch for collapse state changes
 watch(collapsed, calculateTableHeight);
 </script>
+
+<style>
+.sticky-summary {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  z-index: 1;
+}
+</style>
