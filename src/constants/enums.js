@@ -22,3 +22,15 @@ export const IconPaths = {
   sf_express: "/src/assets/icons/sf.png",
   seven_eleven: "/src/assets/icons/7-eleven.png",
 };
+
+export const StatusColor = {
+  completed: "green",
+  cancelled: "grey",
+  rejected: "red",
+  pending: "yellow",
+  processing: "blue",
+  customer_pickup: "purple",
+  ready_to_deliver: "cyan",
+  manual_processing: "orange",
+  authorized: "pink",
+};

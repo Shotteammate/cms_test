@@ -10,7 +10,6 @@
         <a-collapse-panel key="1" header="Search Orders">
           <a-form layout="horizontal" labelAlign="left">
             <a-row gutter="16">
-              <!-- First Column: Inputs -->
               <a-col :span="8">
                 <a-form-item
                   label="Bill No"
@@ -147,6 +146,23 @@
           :rowSelection="rowSelection"
           :scroll="{ y: tableHeight }"
         >
+          <template #bodyCell="{ column, record }">
+            <StatusColumn
+              v-if="column.key === 'paymentStatus'"
+              :icons="record.paymentStatus.icons"
+              :status="record.paymentStatus.status"
+              :statusEnum="PaymentStatus"
+              :getIcon="getIcon"
+            />
+            <StatusColumn
+              v-else-if="column.key === 'deliveryStatus'"
+              :icons="record.deliveryStatus.icons"
+              :status="record.deliveryStatus.status"
+              :statusEnum="DeliveryStatus"
+              :getIcon="getIcon"
+            />
+          </template>
+
           <template #summary>
             <tr>
               <td colspan="3">
@@ -193,8 +209,10 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, watch, h } from "vue";
+import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { getIcon } from "../utils/commonUtils";
+import { DeliveryStatus, PaymentStatus } from "../constants/enums";
+import StatusColumn from "./StatusColumn.vue";
 
 // State for form filters
 const filters = ref({
@@ -229,32 +247,12 @@ const columns = [
   {
     title: "Payment Status",
     key: "paymentStatus",
-    customRender: ({ record }) =>
-      h("div", { style: { display: "flex", alignItems: "center" } }, [
-        ...record.paymentStatus.icons.map((icon) =>
-          h("img", {
-            src: getIcon(icon),
-            alt: "icon",
-            style: { width: "24px", marginRight: "8px" },
-          })
-        ),
-        h("span", record.paymentStatus.status),
-      ]),
+    align: "center",
   },
   {
     title: "Delivery Status",
     key: "deliveryStatus",
-    customRender: ({ record }) =>
-      h("div", { style: { display: "flex", alignItems: "center" } }, [
-        ...record.deliveryStatus.icons.map((icon) =>
-          h("img", {
-            src: getIcon(icon),
-            alt: "icon",
-            style: { width: "24px", marginRight: "8px" },
-          })
-        ),
-        h("span", record.deliveryStatus.status),
-      ]),
+    align: "center",
   },
 ];
 
