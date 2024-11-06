@@ -1,20 +1,12 @@
 <template>
   <div>
     <a-card title="Order list" :bordered="false">
-      <!-- Search Order Filter Section with Collapsible Panel -->
-      <a-collapse
-        :defaultActiveKey="['1']"
-        style="margin-bottom: 20px"
-        @change="toggleCollapse"
-      >
-        <a-collapse-panel key="1" header="Search Orders">
-          <SearchOrder :filters="filters" @search="searchOrders" />
-        </a-collapse-panel>
-      </a-collapse>
+      <SearchOrder :filters="filters" @search="searchOrders" />
 
       <!-- Orders Table with Scrollable Section -->
       <div :style="{ maxHeight: `${tableHeight}px`, overflowY: 'auto' }">
         <a-table
+          sticky
           :columns="columns"
           :dataSource="paginatedData"
           :pagination="false"
