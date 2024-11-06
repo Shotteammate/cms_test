@@ -15,7 +15,6 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
 import { StatusColor } from "../constants/enums";
 
 const props = defineProps({

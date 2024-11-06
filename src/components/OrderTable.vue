@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps, watch } from "vue";
+import { ref, computed, watch } from "vue";
 import StatusColumn from "./StatusColumn.vue";
 import { PaymentStatus, DeliveryStatus } from "../constants/enums";
 import { getIcon } from "../utils/commonUtils";
@@ -169,13 +169,6 @@ const handlePageSizeChange = (size) => {
 </script>
 
 <style>
-.sticky-summary {
-  position: sticky;
-  bottom: 0;
-  background-color: white;
-  z-index: 1;
-}
-
 .summary-row {
   position: sticky;
   bottom: 40px;

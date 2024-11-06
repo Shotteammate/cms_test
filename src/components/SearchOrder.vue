@@ -127,7 +127,7 @@
 </template>
 
 <script setup>
-import { defineProps, h, ref, defineEmits } from "vue";
+import { h, ref } from "vue";
 import { SearchOutlined } from "@ant-design/icons-vue";
 
 const props = defineProps({
