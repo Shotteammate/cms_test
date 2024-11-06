@@ -1,5 +1,26 @@
-# Vue 3 + Vite
+# TAL test
 
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+##### Author
 
-Learn more about IDE Support for Vue in the [Vue Docs Scaling up Guide](https://vuejs.org/guide/scaling-up/tooling.html#ide-support).
+Pun Tik San
+
+## Prerequisite
+
+Use Node 18
+
+```
+nvm use 18
+```
+
+## Development
+
+Start local server
+
+```
+npm i
+npm run dev
+```
+
+## Demo
+
+Click "Search" button to fetch mock orders
