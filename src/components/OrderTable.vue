@@ -31,27 +31,15 @@
           :getIcon="getIcon"
         />
       </template>
-
-      <!-- <template #summary>
-        <tr class="sticky-summary">
-          <td colspan="3">
-            <strong>Checked: </strong><span>HKD</span
-            >{{ selectedTotal.toFixed(2) }}
-          </td>
-          <td colspan="4">
-            <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
-          </td>
-        </tr>
-      </template> -->
     </a-table>
 
-    <!-- Summary Row -->
     <a-row class="summary-row">
       <a-col :span="8">
-        <strong>Checked: </strong><span>HKD</span>{{ selectedTotal.toFixed(2) }}
+        <strong>Checked: </strong><span>HKD </span
+        >{{ selectedTotal.toFixed(2) }}
       </a-col>
       <a-col :span="16">
-        <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
+        <strong>Total: </strong><span>HKD </span>{{ totalAmount.toFixed(2) }}
       </a-col>
     </a-row>
 
@@ -78,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, computed, defineProps } from "vue";
+import { ref, computed, defineProps, watch } from "vue";
 import StatusColumn from "./StatusColumn.vue";
 import { PaymentStatus, DeliveryStatus } from "../constants/enums";
 import { getIcon } from "../utils/commonUtils";
@@ -132,6 +120,15 @@ const pagination = ref({
   pageSize: 5,
   total: props.dataSource.length,
 });
+
+watch(
+  () => props.dataSource,
+  (newData) => {
+    pagination.value.total = newData.length;
+    pagination.value.current = 1;
+  },
+  { immediate: true }
+);
 
 // Row selection state
 const selectedRows = ref([]);
