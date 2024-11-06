@@ -232,7 +232,7 @@
     "buyer": "Thomas Tam",
     "paymentStatus": {
       "status": "pending",
-      "icons": ["apple_pay"]
+      "icons": ["visa"]
     },
     "deliveryStatus": {
       "status": "ready_to_deliver",

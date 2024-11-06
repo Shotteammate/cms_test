@@ -2,9 +2,9 @@
   <a-collapse
     :defaultActiveKey="['1']"
     style="margin-bottom: 20px"
-    @change="toggleCollapse"
+    @change="handleCollapse"
   >
-    <a-collapse-panel key="1" header="Search Orders">
+    <a-collapse-panel key="1" header="Search Order">
       <a-form layout="horizontal" labelAlign="left" :colon="false">
         <a-row gutter="16">
           <a-col :span="8">
@@ -44,7 +44,6 @@
             </a-form-item>
           </a-col>
 
-          <!-- Second Column: Selects -->
           <a-col :span="8">
             <a-form-item
               label="Delivery Agent's Name"
@@ -102,7 +101,6 @@
             </a-form-item>
           </a-col>
 
-          <!-- Third Column: Date-Picker Range and Search Button -->
           <a-col :span="4">
             <a-form-item
               label="Order Date"
@@ -129,16 +127,19 @@
 </template>
 
 <script setup>
-import { defineProps, h, ref } from "vue";
+import { defineProps, h, ref, defineEmits } from "vue";
 import { SearchOutlined } from "@ant-design/icons-vue";
 
 const props = defineProps({
   filters: Object,
 });
 
+const emit = defineEmits(["toggle-collapse"]);
+
 const collapsed = ref(false);
 
-const toggleCollapse = (keys) => {
+const handleCollapse = (keys) => {
   collapsed.value = !keys.includes("1");
+  emit("toggle-collapse", collapsed.value);
 };
 </script>

@@ -9,9 +9,8 @@
         style="width: 24px; margin: 0 4px"
       />
     </div>
-    <div>
-      <a-badge :color="StatusColor[status]" :text="statusEnum[status]" />
-    </div>
+
+    <a-badge :color="StatusColor[status]" :text="statusEnum[status]" />
   </div>
 </template>
 
