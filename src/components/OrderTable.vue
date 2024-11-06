@@ -76,7 +76,6 @@ const props = defineProps({
   tableHeight: Number,
 });
 
-// Define columns within OrderTable
 const columns = [
   {
     title: "Order Date",
@@ -130,41 +129,42 @@ watch(
   { immediate: true }
 );
 
-// Row selection state
 const selectedRows = ref([]);
+const selectedRowKeys = ref([]);
 
-// Row selection config
-const rowSelection = {
-  onChange: (_, selectedRowsData) => {
+const rowSelection = computed(() => ({
+  selectedRowKeys: selectedRowKeys.value,
+  onChange: (keys, selectedRowsData) => {
+    selectedRowKeys.value = keys;
     selectedRows.value = selectedRowsData;
   },
-};
+}));
 
-// Compute paginated data based on pagination
 const paginatedData = computed(() => {
   const start = (pagination.value.current - 1) * pagination.value.pageSize;
   const end = start + pagination.value.pageSize;
   return props.dataSource.slice(start, end);
 });
 
-// Calculate the total amount of selected orders
 const selectedTotal = computed(() => {
   return selectedRows.value.reduce((sum, order) => sum + order.totalAmount, 0);
 });
 
-// Calculate the total amount of paginated orders
 const totalAmount = computed(() => {
   return paginatedData.value.reduce((sum, order) => sum + order.totalAmount, 0);
 });
 
-// Pagination handlers
 const handlePageChange = (page) => {
   pagination.value.current = page;
+  selectedRows.value = [];
+  selectedRowKeys.value = [];
 };
 
 const handlePageSizeChange = (size) => {
   pagination.value.pageSize = size;
-  pagination.value.current = 1; // Reset to the first page when page size changes
+  pagination.value.current = 1;
+  selectedRows.value = [];
+  selectedRowKeys.value = [];
 };
 </script>
 
@@ -192,7 +192,6 @@ const handlePageSizeChange = (size) => {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 10px; */
   padding-top: 10px;
   border-top: 1px solid #f0f0f0;
   z-index: 3;
