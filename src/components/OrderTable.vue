@@ -1,5 +1,11 @@
 <template>
-  <div :style="{ maxHeight: `${tableHeight}px`, overflowY: 'auto' }">
+  <div
+    :style="{
+      maxHeight: `${tableHeight}px`,
+      overflowY: 'auto',
+      position: 'relative',
+    }"
+  >
     <a-table
       sticky
       :columns="columns"
@@ -26,7 +32,7 @@
         />
       </template>
 
-      <template #summary>
+      <!-- <template #summary>
         <tr class="sticky-summary">
           <td colspan="3">
             <strong>Checked: </strong><span>HKD</span
@@ -36,18 +42,20 @@
             <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
           </td>
         </tr>
-      </template>
+      </template> -->
     </a-table>
 
-    <!-- Table Footer Controls -->
-    <div
-      style="
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 10px;
-      "
-    >
+    <!-- Summary Row -->
+    <a-row class="summary-row">
+      <a-col :span="8">
+        <strong>Checked: </strong><span>HKD</span>{{ selectedTotal.toFixed(2) }}
+      </a-col>
+      <a-col :span="16">
+        <strong>Total: </strong>{{ totalAmount.toFixed(2) }}
+      </a-col>
+    </a-row>
+
+    <div class="footer-controls">
       <a-pagination
         :current="pagination.current"
         :total="pagination.total"
@@ -169,5 +177,27 @@ const handlePageSizeChange = (size) => {
   bottom: 0;
   background-color: white;
   z-index: 1;
+}
+
+.summary-row {
+  position: sticky;
+  bottom: 40px;
+  background-color: white;
+  padding: 10px;
+  border-top: 1px solid #f0f0f0;
+  z-index: 2;
+}
+
+.footer-controls {
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* padding: 10px; */
+  padding-top: 10px;
+  border-top: 1px solid #f0f0f0;
+  z-index: 3;
 }
 </style>
