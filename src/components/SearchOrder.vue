@@ -1,5 +1,5 @@
 <template>
-  <a-form layout="horizontal" labelAlign="left">
+  <a-form layout="horizontal" labelAlign="left" :colon="false">
     <a-row gutter="16">
       <a-col :span="8">
         <a-form-item
@@ -104,7 +104,11 @@
           <a-range-picker v-model="filters.orderDate" style="width: 100%" />
         </a-form-item>
         <a-form-item>
-          <a-button type="primary" @click="$emit('search')" block
+          <a-button
+            type="primary"
+            @click="$emit('search')"
+            block
+            :icon="h(SearchOutlined)"
             >Search</a-button
           >
         </a-form-item>
@@ -114,7 +118,8 @@
 </template>
 
 <script setup>
-import { defineProps } from "vue";
+import { defineProps, h } from "vue";
+import { SearchOutlined } from "@ant-design/icons-vue";
 
 const props = defineProps({
   filters: Object,
